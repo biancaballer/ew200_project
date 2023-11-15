@@ -32,5 +32,5 @@ class Shuttle(pygame.sprite.Sprite):
             self.rect.right = SCREEN_WIDTH
         if self.rect.top < 0:
             self.rect.top = 0
-        elif self.rect.bottom > SPACE_BOTTOM:  # accounts for space
+        elif self.rect.bottom > SPACE_BOTTOM:  # accounts for space background
             self.rect.bottom = SPACE_BOTTOM
