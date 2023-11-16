@@ -7,7 +7,7 @@ from settings import *
 
 pygame.init()
 
-game_font = pygame.font.Font(None, 50) # none works
+game_font = pygame.font.Font(None, 50)  # none works but make a unique font
 
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption("Meteor Blast")
@@ -32,7 +32,7 @@ def draw_background():
     for _ in range(25):
         x = random.randint(0, SCREEN_WIDTH)
         # offset the stars so it looks better :)
-        y = random.randint(0, SCREEN_HEIGHT) - (0.5 * TILE_SIZE) # stars go all over screen
+        y = random.randint(0, SCREEN_HEIGHT) - (0.5 * TILE_SIZE)  # stars go all over screen
         background.blit(star, (x, y))
     # draw the meteor blast title
     text = game_font.render("Meteor Blast", True, (216, 242, 242))
@@ -66,13 +66,15 @@ while len(meteors) > 0:
     meteors.update()
 
     # check for collisions
-    blasted_meteors = pygame.sprite.spritecollide(my_shuttle, meteors, True)
+    blasted_meteors = pygame.sprite.spritecollide(my_shuttle, meteors, True) # change to blast
     score += len(blasted_meteors)
     if len(blasted_meteors) > 0:
         print(f"You blasted a meteor, your score is {score}!")
     # draw the game screen
     screen.blit(background, (0, 0))
     my_shuttle.draw(screen)
+
+    # add planet collision update 
 
     meteors.draw(screen)
     pygame.display.flip()
