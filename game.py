@@ -17,7 +17,7 @@ star = pygame.image.load("assets/images/star1.png").convert()
 star.set_colorkey((0, 0, 0))
 score = 0
 my_shuttle = shuttle.Shuttle(20, 380)  # create a new shuttle
-my_planet = planet.Planet(300,80)
+my_planet = planet.Planet(300, 80)
 
 for _ in range(NUM_METEORS):
     meteors.add(Meteor(random.randint(0, SCREEN_WIDTH - TILE_SIZE),
@@ -60,22 +60,20 @@ while len(meteors) > 0:
                 my_shuttle.moving_left = False
             if event.key == pygame.K_RIGHT:
                 my_shuttle.moving_right = False
-        # elif event.type == pygame.MOUSEMOTION:
-        # my_minnow.rect.center = pygame.mouse.get_pos()
 
     # update game objects
     my_shuttle.update()
     meteors.update()
 
     # check for collisions
-    blasted_meteors = pygame.sprite.spritecollide(my_shuttle, meteors, True) # change to blast
+    blasted_meteors = pygame.sprite.spritecollide(my_shuttle, meteors, True)  # change to blast
     score += len(blasted_meteors)
     if len(blasted_meteors) > 0:
         print(f"You blasted a meteor, your score is {score}!")
     # draw the game screen
     screen.blit(background, (0, 0))
     my_shuttle.draw(screen)
-    my_planet.draw(screen)
+    my_planet.draw(screen)  # scale to make planet smaller
 
     # add planet collision update
 
