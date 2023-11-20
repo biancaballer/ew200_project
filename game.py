@@ -2,6 +2,7 @@ import pygame
 import sys
 import random
 import shuttle
+import planet
 from meteor import Meteor, meteors
 from settings import *
 
@@ -16,6 +17,7 @@ star = pygame.image.load("assets/images/star1.png").convert()
 star.set_colorkey((0, 0, 0))
 score = 0
 my_shuttle = shuttle.Shuttle(20, 380)  # create a new shuttle
+my_planet = planet.Planet(300,80)
 
 for _ in range(NUM_METEORS):
     meteors.add(Meteor(random.randint(0, SCREEN_WIDTH - TILE_SIZE),
@@ -73,8 +75,9 @@ while len(meteors) > 0:
     # draw the game screen
     screen.blit(background, (0, 0))
     my_shuttle.draw(screen)
+    my_planet.draw(screen)
 
-    # add planet collision update 
+    # add planet collision update
 
     meteors.draw(screen)
     pygame.display.flip()
