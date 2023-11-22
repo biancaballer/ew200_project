@@ -25,7 +25,7 @@ my_planet.image = scaled_planet
 for _ in range(NUM_METEORS):
     meteors.add(Meteor(random.randint(0, SCREEN_WIDTH - TILE_SIZE),
                        random.randint(0, SPACE_BOTTOM - TILE_SIZE)))
-
+# make continuous projection of meteors until planet gets hit 3 times
 background = screen.copy()
 clock = pygame.time.Clock()
 
