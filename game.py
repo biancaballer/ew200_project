@@ -3,6 +3,7 @@ import sys
 import random
 import shuttle
 import planet
+import laser
 from meteor import Meteor, meteors
 from settings import *
 
@@ -69,7 +70,7 @@ while len(meteors) > 0:
     meteors.update()
 
     # check for collisions
-    blasted_meteors = pygame.sprite.spritecollide(my_shuttle, meteors, True)  # change to blast
+    blasted_meteors = pygame.sprite.spritecollide(my_shuttle, meteors, True)  # change score fxn
     score += len(blasted_meteors)
     if len(blasted_meteors) > 0:
         print(f"You blasted a meteor, your score is {score}!")
