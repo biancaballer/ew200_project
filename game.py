@@ -23,6 +23,7 @@ scaled_planet = pygame.transform.scale(my_planet.image, (int(my_planet.rect.widt
                                                          int(my_planet.rect.height * SCALE_FACTOR)))  # scales planet
 my_planet.image = scaled_planet
 
+#  make while running instead of for loop
 for _ in range(NUM_METEORS):
     meteors.add(Meteor(random.randint(0, SCREEN_WIDTH - TILE_SIZE),
                        random.randint(0, SPACE_BOTTOM - TILE_SIZE)))
