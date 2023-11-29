@@ -9,6 +9,7 @@ from settings import *
 
 pygame.init()
 
+running = True
 game_font = pygame.font.Font(None, 50)  # none works but make a unique font
 
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
@@ -23,10 +24,14 @@ scaled_planet = pygame.transform.scale(my_planet.image, (int(my_planet.rect.widt
                                                          int(my_planet.rect.height * SCALE_FACTOR)))  # scales planet
 my_planet.image = scaled_planet
 
-#  make while running instead of for loop
-for _ in range(NUM_METEORS):
-    meteors.add(Meteor(random.randint(0, SCREEN_WIDTH - TILE_SIZE),
-                       random.randint(0, SPACE_BOTTOM - TILE_SIZE)))
+#  make while running instead of for loop - 
+while running:
+    for event in pygame.event.get():
+        if event.type == pygame.quit:
+            running = False
+        elif event.type == pygame.ACTIVEEVENT:
+            meteors.add(Meteor(random.randint(0, SCREEN_WIDTH - TILE_SIZE),
+                               random.randint(0, SPACE_BOTTOM - TILE_SIZE)))
 # make continuous projection of meteors until planet gets hit 3 times
 background = screen.copy()
 clock = pygame.time.Clock()
