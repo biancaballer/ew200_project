@@ -1,6 +1,6 @@
 import pygame
 from settings import *
-from laser import *
+import laser
 
 
 class Planet(pygame.sprite.Sprite):
@@ -20,4 +20,4 @@ class Planet(pygame.sprite.Sprite):
         screen.blit(self.image, (self.rect.x, self.rect.y))
 
 #  make collision where planet updates after hits and game ends after 3 hits
-    def update_1(self):
+    # def update_1(self):

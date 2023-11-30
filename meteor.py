@@ -1,6 +1,6 @@
 import pygame
 from settings import *
-from laser import *
+import laser
 
 
 class Meteor(pygame.sprite.Sprite):

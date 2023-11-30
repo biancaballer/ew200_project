@@ -3,13 +3,13 @@ import sys
 import random
 import shuttle
 import planet
-import laser
+from laser import Laser, lasers
 from meteor import Meteor, meteors
 from settings import *
 
 pygame.init()
 
-running = True
+# running = True
 game_font = pygame.font.Font(None, 50)  # none works but make a unique font
 
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
@@ -24,15 +24,11 @@ scaled_planet = pygame.transform.scale(my_planet.image, (int(my_planet.rect.widt
                                                          int(my_planet.rect.height * SCALE_FACTOR)))  # scales planet
 my_planet.image = scaled_planet
 
-#  make while running instead of for loop - relate it to planet
-# while planet == alive:
-    # for event in pygame.event.get():
-        #if event.type == pygame.quit:
-            #pygame.quit()
-            #sys.exit()
-       # elif event.type == pygame.ACTIVEEVENT:
-            #meteors.add(Meteor(random.randint(0, SCREEN_WIDTH - TILE_SIZE),
-                               #random.randint(0, SPACE_BOTTOM - TILE_SIZE)))
+#  make infinite meteors
+for _ in range(NUM_METEORS):
+    meteors.add(Meteor(random.randint(0, SCREEN_WIDTH - TILE_SIZE),
+                       random.randint(0, SPACE_BOTTOM - TILE_SIZE)))
+
 # make continuous projection of meteors until planet gets hit 3 times
 background = screen.copy()
 clock = pygame.time.Clock()
@@ -55,6 +51,7 @@ def draw_background():
 
 draw_background()
 
+# main game loop
 while len(meteors) > 0:
     # listen for events
     for event in pygame.event.get():
@@ -66,6 +63,8 @@ while len(meteors) > 0:
                 my_shuttle.moving_left = True
             if event.key == pygame.K_RIGHT:
                 my_shuttle.moving_right = True
+            if event.key == pygame.K_SPACE:
+                my_shuttle.shoot()
         elif event.type == pygame.KEYUP:
             if event.key == pygame.K_LEFT:
                 my_shuttle.moving_left = False
@@ -77,7 +76,7 @@ while len(meteors) > 0:
     meteors.update()
 
     # check for collisions
-    blasted_meteors = pygame.sprite.spritecollide(my_shuttle, meteors, True)  # change score fxn
+    blasted_meteors = pygame.sprite.spritecollide(my_shuttle, meteors, False)
     score += len(blasted_meteors)
     if len(blasted_meteors) > 0:
         print(f"You blasted a meteor, your score is {score}!")
@@ -85,6 +84,10 @@ while len(meteors) > 0:
     screen.blit(background, (0, 0))
     my_shuttle.draw(screen)
     my_planet.draw(screen)
+    lasers.draw(screen)
+    lasers.update()
+
+    hit_planet = pygame.sprite.spritecollide(my_planet, meteors, False)
 
     # add planet collision update
 

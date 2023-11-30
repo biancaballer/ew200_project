@@ -1,5 +1,6 @@
 import pygame
 from settings import *
+from laser import Laser, lasers
 
 
 class Shuttle(pygame.sprite.Sprite):
@@ -14,6 +15,7 @@ class Shuttle(pygame.sprite.Sprite):
         self.moving_right = False
         self.moving_up = False
         self.moving_down = False
+        self.lasers_group = lasers
 
     def draw(self, screen):
         screen.blit(self.image, (self.rect.x, self.rect.y))
@@ -34,3 +36,8 @@ class Shuttle(pygame.sprite.Sprite):
             self.rect.top = 0
         elif self.rect.bottom > SPACE_BOTTOM:  # accounts for space background
             self.rect.bottom = SPACE_BOTTOM
+
+    def shoot(self):
+        # Create a new laser and add it to the lasers group
+        laser = Laser(self.rect.right, self.rect.centery)
+        self.lasers_group.add(laser)
