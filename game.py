@@ -24,7 +24,6 @@ scaled_planet = pygame.transform.scale(my_planet.image, (int(my_planet.rect.widt
                                                          int(my_planet.rect.height * SCALE_FACTOR)))  # scales planet
 my_planet.image = scaled_planet
 
-
 #  make infinite meteors
 for _ in range(NUM_METEORS):
     meteors.add(Meteor(random.randint(0, SCREEN_WIDTH - TILE_SIZE),
@@ -51,9 +50,9 @@ def draw_background():
 
 
 draw_background()
-
+game_over = False  # credit Arya
 # main game loop
-while len(meteors) > 0:
+while not game_over:
     # listen for events
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -77,6 +76,8 @@ while len(meteors) > 0:
     meteors.update()
 
     # check for collisions
+    pygame.sprite.groupcollide(meteors, lasers, True, True)
+    
     blasted_meteors = pygame.sprite.spritecollide(my_shuttle, meteors, False)
     score += len(blasted_meteors)
     if len(blasted_meteors) > 0:
