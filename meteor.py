@@ -49,6 +49,9 @@ class Meteor(pygame.sprite.Sprite):
     def draw(self, screen):
         screen.blit(self.image, self.rect)
 
+    def kill(self):
+        pygame.sprite.Sprite.kill(self)
+
 
 meteors = pygame.sprite.Group()
 # make unlimited meteors and scale

@@ -3,7 +3,7 @@ import sys
 import random
 import shuttle
 import planet
-from laser import Laser, lasers
+from laser import *
 from meteor import Meteor, meteors
 from settings import *
 
@@ -23,6 +23,7 @@ my_planet = planet.Planet(500, 30)
 scaled_planet = pygame.transform.scale(my_planet.image, (int(my_planet.rect.width * SCALE_FACTOR),
                                                          int(my_planet.rect.height * SCALE_FACTOR)))  # scales planet
 my_planet.image = scaled_planet
+
 
 #  make infinite meteors
 for _ in range(NUM_METEORS):

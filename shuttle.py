@@ -1,6 +1,6 @@
 import pygame
 from settings import *
-from laser import Laser, lasers
+from laser import *
 
 
 class Shuttle(pygame.sprite.Sprite):
