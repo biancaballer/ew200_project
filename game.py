@@ -23,11 +23,12 @@ my_planet = planet.Planet(500, 30)
 scaled_planet = pygame.transform.scale(my_planet.image, (int(my_planet.rect.width * SCALE_FACTOR),
                                                          int(my_planet.rect.height * SCALE_FACTOR)))  # scales planet
 my_planet.image = scaled_planet
-
-#  make infinite meteors
+pygame.mixer.music.load("assets/sounds/space_music.mp3")
+pygame.mixer.music.set_volume(0.5)
+pygame.mixer.music.play(-1)  # plays background music in infinite loop
 for _ in range(NUM_METEORS):
-    meteors.add(Meteor(random.randint(0, SCREEN_WIDTH - TILE_SIZE),
-                       random.randint(0, SPACE_BOTTOM - TILE_SIZE)))
+    meteors.add(Meteor(random.randint(0, 10),
+                       random.randint(0, 0)))
 
 # make continuous projection of meteors until planet gets hit 3 times
 background = screen.copy()
@@ -51,9 +52,14 @@ def draw_background():
 
 draw_background()
 game_over = False  # credit Arya
+hits = 0
 # main game loop
 while not game_over:
     # listen for events
+    # continuously adds a new meteor periodically
+    if random.randint(1, 50) == 1:
+        new_meteor = Meteor(80, 20)
+        meteors.add(new_meteor)
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
@@ -76,9 +82,8 @@ while not game_over:
     meteors.update()
 
     # check for collisions
-    pygame.sprite.groupcollide(meteors, lasers, True, True)
-    
-    blasted_meteors = pygame.sprite.spritecollide(my_shuttle, meteors, False)
+
+    blasted_meteors = pygame.sprite.groupcollide(meteors, lasers, True, True)
     score += len(blasted_meteors)
     if len(blasted_meteors) > 0:
         print(f"You blasted a meteor, your score is {score}!")
@@ -90,8 +95,11 @@ while not game_over:
     lasers.update()
 
     hit_planet = pygame.sprite.spritecollide(my_planet, meteors, False)
-
-    # add planet collision update
+    if hit_planet:
+        hits += 1
+        # my_planet.hit()  # changes planet image to show damage
+    if hits >= 3:
+        game_over = True
 
     meteors.draw(screen)
     pygame.display.flip()
