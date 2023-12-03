@@ -66,7 +66,6 @@ def end_screen():
                 sys.exit()
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_r:
-                    main_game()
                     return True
                 elif event.key == pygame.K_q:
                     pygame.quit()
@@ -137,10 +136,10 @@ def main_game():
             hits += 1
             # my_planet.hit()  # changes planet image to show damage
         while hits >= 3:
-            # game_over = True
-            restart = end_screen()
-            if restart:
-                main_game()
+            game_over = end_screen()
+            if game_over:
+                hits = 0
+                score = 0
 
         meteors.draw(screen)
         pygame.display.flip()
