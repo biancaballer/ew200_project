@@ -20,3 +20,6 @@ class Planet(pygame.sprite.Sprite):
     #  make collision where planet updates after hits and game ends after 3 hits
     def hit(self):
         self.image = self.planet_1
+
+    def reset(self):
+        self.image = self.planet_0

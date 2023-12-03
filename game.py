@@ -9,7 +9,7 @@ from settings import *
 
 pygame.init()
 
-# running = True
+running = True
 game_font = pygame.font.Font(None, 50)  # none works but make a unique font
 
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
@@ -58,14 +58,24 @@ def end_screen():
     screen.blit(text, text_rect)
     pygame.display.flip()
 
-    waiting_for_key = True
+    waiting_for_key = True  # flag
     while waiting_for_key:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
             elif event.type == pygame.KEYDOWN:
+                print("EVENT TYPE \n")  # get rid of once fixed
+                print(pygame.KEYDOWN)
+                print("KEY R ")
+                print(pygame.K_r)
+                print("KEY Q ")
+                print(pygame.K_q)
+                print("EVENT KEY ")
+                print(event.key)
+
                 if event.key == pygame.K_r:
+                    print("IN HERE ")
                     return True
                 elif event.key == pygame.K_q:
                     pygame.quit()
@@ -81,6 +91,7 @@ def main_game():
     music_paused = False  # flag for background music
     score = 0
     hits = 0
+    draw_background()
     while not game_over:
         # listen for events
         # continuously adds a new meteor periodically
@@ -101,7 +112,7 @@ def main_game():
                     if not music_paused:
                         # Pause the background music
                         pygame.mixer.music.pause()
-                        music_paused = True
+                        music_paused = False
                         # Play the additional sound effect
                         blaster_sound.play()
                     else:
@@ -136,15 +147,23 @@ def main_game():
             hits += 1
             # my_planet.hit()  # changes planet image to show damage
         while hits >= 3:
+            hits = 0
             game_over = end_screen()
             if game_over:
-                hits = 0
+                # hits = 0
                 score = 0
+                my_planet.reset()
+                scale_planet = pygame.transform.scale(my_planet.image, (int(my_planet.rect.width * SCALE_FACTOR),
+                                                                        int(my_planet.rect.height * SCALE_FACTOR)))  # scales planet
+                my_planet.image = scale_planet
+                main_game()
+                # break
+
+                # continue
 
         meteors.draw(screen)
         pygame.display.flip()
         clock.tick(60)
 
 
-draw_background()
 main_game()
