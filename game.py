@@ -69,9 +69,9 @@ def end_screen():
                     main_game()
                     return True
                 elif event.key == pygame.K_q:
-
                     pygame.quit()
                     sys.exit()
+        pygame.event.clear()
 
     return False
 
@@ -120,9 +120,8 @@ def main_game():
         my_shuttle.update()
         meteors.update()
 
-        # check for collisions
-
         blasted_meteors = pygame.sprite.groupcollide(meteors, lasers, True, True)
+        # checks for meteor v laser collision
         score += len(blasted_meteors)
         if len(blasted_meteors) > 0:
             print(f"You blasted a meteor, your score is {score}!")
@@ -137,9 +136,11 @@ def main_game():
         if hit_planet:
             hits += 1
             # my_planet.hit()  # changes planet image to show damage
-        if hits >= 3:
+        while hits >= 3:
             # game_over = True
-            end_screen()
+            restart = end_screen()
+            if restart:
+                main_game()
 
         meteors.draw(screen)
         pygame.display.flip()
