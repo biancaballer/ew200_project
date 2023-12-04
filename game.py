@@ -9,8 +9,8 @@ from settings import *
 
 pygame.init()
 
-running = True
-game_font = pygame.font.Font(None, 50)  # none works but make a unique font
+running = True  # flag
+game_font = pygame.font.Font("assets/fonts/aerospace_font.ttf", 25)
 
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption("Meteor Blast")
@@ -76,8 +76,10 @@ def end_screen():
 
                 if event.key == pygame.K_r:
                     print("IN HERE ")
-                    return True
-                elif event.key == pygame.K_q:
+                    global running
+                    running = True
+                    main_game()
+                if event.key == pygame.K_q:
                     pygame.quit()
                     sys.exit()
         pygame.event.clear()
@@ -148,8 +150,8 @@ def main_game():
             # my_planet.hit()  # changes planet image to show damage
         while hits >= 3:
             hits = 0
-            game_over = end_screen()
-            if game_over:
+            game_done = end_screen()
+            if game_done:
                 # hits = 0
                 score = 0
                 my_planet.reset()
@@ -166,4 +168,6 @@ def main_game():
         clock.tick(60)
 
 
-main_game()
+while running:
+    running = False
+    main_game()
