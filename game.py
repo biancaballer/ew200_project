@@ -45,6 +45,7 @@ background = screen.copy()
 clock = pygame.time.Clock()
 
 
+# background function
 def draw_background():
     # draw space
     background.fill(SPACE_COLOR)
@@ -72,8 +73,6 @@ def end_screen():
     screen.fill(SPACE_COLOR)
     text = game_font.render(f"Game Over - Your Score: {score} - High Score: {high_score}", True, 0)
     text_rect = text.get_rect(center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2))
-    text1 = game_font.render("press R to restart or Q to quit", True, 0)
-    text1_rect = text1.get_rect(center=(200, 200))
     screen.blit(text, text_rect)
     pygame.display.flip()
 
@@ -95,7 +94,7 @@ def end_screen():
     return False
 
 
-# main game loop
+# main game screen
 def main_game():
     global score
     game_over = False  # credit Arya
@@ -187,6 +186,7 @@ def main_game():
         clock.tick(60)
 
 
+# main game loop
 while running:
     running = False
     main_game()

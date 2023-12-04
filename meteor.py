@@ -54,4 +54,3 @@ class Meteor(pygame.sprite.Sprite):
 
 
 meteors = pygame.sprite.Group()
-# make unlimited meteors and scale
