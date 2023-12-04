@@ -1,10 +1,10 @@
 # Meteor Blast
 ## By Bianca Coleman
 
-game description
+Save the planet by blasting any meteors heading its way!
 
 My game incorporates:
 list of points from rubric
 
 Special Thanks to:
-any classmates who helped list here
+Arya Singh, Pach

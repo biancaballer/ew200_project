@@ -8,6 +8,7 @@ class Shuttle(pygame.sprite.Sprite):
         super().__init__()
         self.right_image = pygame.image.load("assets/images/blueshuttle.png").convert()
         self.right_image.set_colorkey((0, 0, 0))
+        self.left_image = pygame.transform.flip(self.right_image, True, False)
         self.image = self.right_image
         # creating a rectangle that tells where to paint shuttle
         self.rect = pygame.rect.Rect(x, y, self.image.get_width(), self.image.get_height())
@@ -23,7 +24,7 @@ class Shuttle(pygame.sprite.Sprite):
     def update(self):
         if self.moving_left:
             self.rect.x -= 5
-            self.image = self.right_image
+            self.image = self.left_image  # the photo is symmetric, but you can see it flip quickly
         elif self.moving_right:
             self.rect.x += 5
             self.image = self.right_image
