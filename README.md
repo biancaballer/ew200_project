@@ -13,9 +13,10 @@ shooter (projectiles)
 helping hand
 shifting screens (multiple screens)
 fancy fonts (online font)
-the walls are hard (collisions constraint player movement)
+the walls are hard (wall collisions constraint player movement)
 muzak (continuous music)
 great graphics (change sprite based on dynamics)
+trick trig (trigonometry for laser trajectory)
 
 Special Thanks to:
 Arya Singh, Pach
