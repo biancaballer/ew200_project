@@ -96,7 +96,7 @@ def end_screen():
 
 # main game screen
 def main_game():
-    global score
+    global score  # used global variables to be able to access in and out of function
     game_over = False  # credit Arya
     music_paused = False  # flag for background music
     hits = 0
